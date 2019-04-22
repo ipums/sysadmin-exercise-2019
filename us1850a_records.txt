@@ -1,0 +1,192 @@
+cd "/pkg/ipums/usa/output_data/current".
+
+file type mixed
+  /file = "us1850a_usa.dat"
+  /record = 1-1 (a)
+.
+
+record type "H".
+data list /
+  RECTYPE     1-1 (a)
+  YEAR        2-5
+  DATANUM     6-7
+  SERIAL      8-15
+  NUMPREC     16-17
+  SUBSAMP     18-19
+  HHWTREG     20-23
+  DWSIZE      26-29
+  NUMHH       30-31
+  NUMHHTAK    32-32
+  REGION      33-34
+  STATEICP    35-36
+  STATEFIP    37-38
+  MDSTATUS    43-43
+  SEA         44-46
+  METRO       47-47
+  METAREA     48-51
+  METDIST     52-55
+  CITY        56-59
+  CITYPOP     60-64
+  SIZEPL      65-66
+  URBAN       67-67
+  URBAREA     68-71
+  GQ          72-72
+  GQTYPE      73-75
+  GQFUNDS     76-77
+  FARM        78-78
+  VERIFY      98-98
+  SAMPRULE    99-99
+  REEL        100-103
+  PAGENO      106-108
+  NUMPERHH    110-113
+  LINE        115-117
+  MICROSEQ    119-119
+  ENUMMO      120-121
+  ENUMDAY     122-123
+  NFAMS       190-191
+  NCOUPLES    192-192
+  NMOTHERS    193-193
+  NFATHERS    194-194
+  QGQTYPE     241-241
+  QGQFUNDS    242-242
+  DWELLING    326-333
+  MCD         505-509
+  INCORP      510-514
+  NENGPOP     517-521
+  DMORT       540-549
+  URBPOP      551-555
+  HHWTDET     556-561 (2)
+  HHTYPE      583-583
+  IGQ         593-595
+  IGQTYPE     596-598
+  IGQFUNDS    599-600
+  ISURSIM     605-607
+  ICITY       608-616
+  ICOUNTY     617-620
+  INUMPERH    621-624
+  CNTRY       1004-1006
+  HEADLOC     1021-1022
+  QNUMPERH    1038-1038
+  NHGISJOIN   1067-1073
+  YRSTCOUNTY  1075-1084
+  STCOUNTY    1085-1090
+  APPAL       1091-1092
+  COUNTY      1095-1098
+  HHWT        1111-1120 (2)
+  STRATA      1126-1137
+  CLUSTER     1138-1150
+  DWSEQ       1151-1153
+  RECTYPEP    1-1 (a)
+.
+
+record type "P".
+data list /
+  RECTYPE     1-1 (a)
+  RECTYPEP    1-1 (a)
+  YEARP       2-5
+  DATANUMP    6-7
+  SERIALP     8-15
+  PERNUM      16-19
+  SLWTREG     20-23
+  PERWTREG    24-27
+  MOMLOC      28-29
+  STEPMOM     30-30
+  MOMRULE     31-31
+  POPLOC      32-33
+  STEPPOP     34-34
+  POPRULE     35-35
+  SPLOC       36-37
+  SPRULE      38-38
+  FAMSIZE     39-40
+  NCHILD      41-41
+  NCHLT5      42-42
+  FAMUNIT     43-44
+  ELDCH       45-46
+  YNGCH       47-48
+  NSIBS       49-49
+  RELATE      50-53
+  AGE         54-56
+  SEX         57-57
+  RACE        58-60
+  MARRINYR    67-67
+  BPL         69-73
+  HISPAN      86-88
+  SPANNAME    111-111
+  SCHOOL      112-112
+  LIT         116-116
+  LABFORCE    120-120
+  OCC1950     121-123
+  OCCSCORE    127-128
+  SEI         129-130
+  IND1950     131-133
+  DETOCC      156-159
+  REALPROP    204-209
+  NAMELAST    215-230 (a)
+  NAMEFRST    231-246 (a)
+  AGEMONTH    247-248
+  BLIND       252-252
+  DEAF        253-253
+  IDIOTIC     254-254
+  INSANE      255-255
+  CRIME       257-257
+  PAUPER      258-258
+  SURSIM      261-262
+  IMPMOM      263-264
+  IMPPOP      265-266
+  IMPSP       267-268
+  IMPREL      269-270
+  QAGE        281-281
+  QBPL        285-285
+  QMARINYR    287-287
+  QOCC        316-316
+  QRACE       318-318
+  QSURSIM     320-320
+  QSCHOOL     324-324
+  QSEX        325-325
+  RACAMIND    341-341
+  RACASIAN    342-342
+  RACBLK      343-343
+  RACPACIS    344-344
+  RACOTHER    346-346
+  RACWHT      347-347
+  AGEDIFF     406-408
+  PERWTDET    550-555 (2)
+  RACESING    561-562
+  PROBWHT     563-565
+  PROBOTH     566-568
+  PROBBLK     569-571
+  PROBAPI     572-574
+  PROBAI      575-577
+  HISPRULE    580-580
+  IAGE        644-646
+  IAGEMONT    647-648
+  IBPL        649-653
+  IIND1950    677-679
+  ILIT        681-682
+  IOCC        693-695
+  IOCC1950    696-698
+  ILABFORC    699-702
+  IRACE       703-706
+  IRELATE     707-711
+  ISCHOOL     712-713
+  ISEX        714-714
+  RELFLAG     751-752
+  DAGE        753-762
+  DRELATE     773-782
+  PRESGL      791-793 (1)
+  ERSCOR50    797-800 (1)
+  EDSCOR50    805-808 (1)
+  NPBOSS50    813-816 (1)
+  OCCSTR      842-893 (a)
+  DBPL        1389-1398
+  ISRELATE    1399-1399
+  DMBPL       1400-1409
+  DYRSUSA     1410-1419
+  DFBPL       1420-1429
+  SLWT        1638-1647 (2)
+  PERWT       1648-1657 (2)
+  BIRTHYR     1658-1661
+  OCC         1665-1668
+.
+
+end file type.
