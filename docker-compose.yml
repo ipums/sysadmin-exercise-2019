@@ -1,0 +1,12 @@
+version: "3"
+services:
+  # sysadmin-db:
+    # build: 
+
+  sysadmin-app:
+    build: ./sysadmin-app
+    image: sysadmin-app
+    ports:
+      - "8080:80/tcp"
+    # depends-on: sysadmin-db
+

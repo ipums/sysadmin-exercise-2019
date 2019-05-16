@@ -22,18 +22,16 @@ WORKDIR /home/app
 # but it looked so version-specific, we decided to keep the more generically
 # versioned dev package instead.
 COPY requirements.txt requirements.txt
-RUN apt-get install -y --no-install-recommends libmysqlclient20 \
- && apt-get install -y --no-install-recommends python3-pip \
+RUN apt-get install -y --no-install-recommends python3-pip \
                                                python3-setuptools \
                                                python3-dev \
                                                libmysqlclient-dev \
  && pip3 install --trusted-host pypi.python.org -r requirements.txt \
- && apt-get purge -y --auto-remove libmysqlclient-dev \
-                                   python3-dev \
+ && apt-get purge -y --auto-remove python3-dev \
                                    python3-setuptools \
                                    python3-pip
 
-# Configure and enable Nginx (and therefore, passenger.)
+# Configure and enable Nginx and Passenger.
 COPY webapp.conf /etc/nginx/sites-enabled/webapp.conf
 RUN rm /etc/nginx/sites-enabled/default \
  && rm -f /etc/service/nginx/down
