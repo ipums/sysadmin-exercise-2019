@@ -33,7 +33,7 @@ from the same directory (the directory with the docker-compose.yml file.)
 The sysadmin-db image build process extracts the relevant fields from the census data.  It also sets up environment variables and loading scripts that are used later during container spin up by stuff built in to the MySQL base image.  Database operations are deferred to this time to allow the MySQL base image to start up the database.
 
 More specifically, the sysadmin-db image build process (see `sysadmin-db/Dockerfile`):
-* Starts with [https://hub.docker.com/_/mysql](docker hub's MySQL image), specifically the latest MySQL 8 image.
+* Starts with [docker hub's MySQL image](https://hub.docker.com/_/mysql), specifically the latest MySQL 8 image.
 * Sets some environment variables used by the MySQL image to set the root password and create an empty ipums database when spinning up the image later.  NOTE: Contains MySQL user names and passwords, so this is a security consideration.
 * Copies files from `sysadmin-db` in this repository to a directory `/ipums/` inside the image.
 * Briefly installs python 3 in order to run `sysadmin-db/ExerciseExtract.py`, which extracts the desired fields from the census data into a file that only lives on the image called `us1850a_extracted.csv`.  This means that the data is baked in to the image.  However, the CSV file is not loaded into the database until after a container is spun up from the image.  Since python is not needed on the database layer at runtime, it is immediately uninstalled. 
@@ -49,9 +49,9 @@ The sysadmin-db container spin-up process:
 ### sysadmin-app image
 
 The sysadmin-app image build process is comparatively simple because it doesn't involve the two-stage build and spin-up procedure of the MySQL-based image.  Specifically, the sysadmin-app image build process:
-* Builds on a [https://hub.docker.com/r/phusion/passenger-customizable](customizable phusion passenger image).  The full image is avoided to avoid having unneeded Ruby, node.js, etc. present.
+* Builds on a [customizable phusion passenger image](https://hub.docker.com/r/phusion/passenger-customizable).  The full image is avoided to avoid having unneeded Ruby, node.js, etc. present.
 * Uses the phusion-provided `/pd_build/python.sh` script to install python.
-* Patches the operating system at sysadmin-app image build time, as [https://github.com/phusion/passenger-docker#upgrading_os](recommended by Phusion).  This can take some time, of course.
+* Patches the operating system at sysadmin-app image build time, as [recommended by Phusion](https://github.com/phusion/passenger-docker#upgrading_os).  This can take some time, of course.
 * Installs python packages Flask and Flask-MySQLdb as specified in `sysadmin-app/requirements.txt`.   Again, some additional packages such as pip are temporarily installed to allow this operation, then immediately removed because they are not needed at runtime.  The mysql client library is not removed because it is needed at runtime.  (See comments in `sysadmin-app/Dockerfile`)
 * Copies the ISRDI-provided web app and `sysadmin-app/webapp.conf` into place to enable serving content.
 
@@ -67,13 +67,13 @@ Port 80 inside the web app server is exposed on the docker host as port 8080, to
 
 
 ## Changes I made to ISRDI-provided materials
-* Moved many items to `sysadmin-db` and `sysadmin-app` subdirectories.  This was partly organizational, and partly due to wanting to restrict the size of the docker path context which [https://docs.docker.com/engine/reference/commandline/build/#build-with-path](apparently) gets sent to the docker daemon in it entirety regardless of how much of the directory is actually referred to by the Dockerfile?
+* Moved many items to `sysadmin-db` and `sysadmin-app` subdirectories.  This was partly organizational, and partly due to wanting to restrict the size of the docker path context which [apparently](https://docs.docker.com/engine/reference/commandline/build/#build-with-path) gets sent to the docker daemon in it entirety regardless of how much of the directory is actually referred to by the Dockerfile?
 * Added a line to `sysadmin-app/webapp.conf` to specify using python 3 `passenger python /usr/bin/python3;`
 * Used Flask-MySQLdb as specified in `sysadmin-app/app.py` instead of Flask-MySQL as mentioned in PDF instructions.
 
 ## Potential Improvements
 Here are some things that could still be improved about this solution.
 * MySQL user names and passwords could be moved to an env_file, or otherwise made more secure.  Also, using a random mysql root password could be explored.
-* If ISRDI wanted to maintain the single-level directory structure, I could explore using a [https://docs.docker.com/engine/reference/commandline/build/#use-a-dockerignore-file](.dockerignore) file instead of subdirectories to restrict the amount of context sent to the docker daemon (assuming I am interpreting that issue correctly.)
+* If ISRDI wanted to maintain the single-level directory structure, I could explore using a [.dockerignore](https://docs.docker.com/engine/reference/commandline/build/#use-a-dockerignore-file) file instead of subdirectories to restrict the amount of context sent to the docker daemon (assuming I am interpreting that issue correctly.)
 * If python 3 was always available on the docker host doing the sysadmin-db image building, `sysadmin-db/ExerciseExtract.py` could be run on the docker host, and only the extracted fields would ever need to be added to the image, instead of doing that processing as part of the build process.  I did not do that to minimize external dependencies.
 
